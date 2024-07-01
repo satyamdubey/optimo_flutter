@@ -21,20 +21,20 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const HomePageScreen(),
       builder: EasyLoading.init(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePageScreen extends StatefulWidget {
+  const HomePageScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePageScreen> createState() => _HomePageScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageScreenState extends State<HomePageScreen> {
   String? fileName;
   List<int>? fileBytes;
 
@@ -43,8 +43,10 @@ class _HomePageState extends State<HomePage> {
   Future<void> _uploadJson() async {
     if (fileName != null && fileBytes != null) {
       http.MultipartFile file = http.MultipartFile.fromBytes(
-          "json_file", fileBytes!,
-          filename: fileName);
+        "json_file",
+        fileBytes!,
+        filename: fileName,
+      );
       var response = await ServerRequest.formData(
         method: "POST",
         path: ApiConstant.uploadStatement,
